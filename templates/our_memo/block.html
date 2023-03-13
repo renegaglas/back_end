@@ -1,0 +1,13 @@
+
+<h1>{{ block.block_title }}</h1>
+
+    <ul>
+    {% for memo in block.memo_set.all %}
+        <li><a href="{% url 'our_memo:memo' memo.id %}">{{ memo.memo_title }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'our_memo:update_block' block.id %}">update a block</a>
+    <a href="{% url 'our_memo:delete_block' block.id %}">delete a block</a>
+
+
