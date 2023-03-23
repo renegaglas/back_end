@@ -1,4 +1,4 @@
-"""djangoProject_back_end URL Configuration
+"""djangoProject1_back_end_rework URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -14,12 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include #include import urlpatterns from other application
+from django.urls import path, include
 
-#urlpatterns
 urlpatterns = [
-    path('', include('our_memo.urls')),
     path('admin/', admin.site.urls),
+    path('', include('our_memo.urls')),
     path("accounts/", include("django.contrib.auth.urls")),
     path("accounts/", include("accounts.urls")),
 ]

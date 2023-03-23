@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head_content %}
+    <title>index page</title>
+{% endblock %}
+
+{% block nav_title %}
+    <h1>index page</h1>
+{% endblock %}
+
+{% block main_content %}
+    {% if latest_block_list %}
+        <h3>available block</h3>
+        <ul style="border: 5px groove black;list-style-type:none;width: 50%;align-self: center;text-align: center;">
+            {% for block in latest_block_list %}
+                <li><a href="{% url 'our_memo:block' block.id %}">{{ block.block_title }}</a></li>
+                {% if block.memo_set.all %}
+                    <div style="width: 50%;padding-left: 50%;text-align: start ">
+                        <ul style="border: 5px groove black;list-style-type:none;">
+                            {% for memo in block.memo_set.all %}
+                                <li><a href="{% url 'our_memo:memo' memo.id %}">|--{{ memo.memo_title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <div style="width: 50%;padding-left: 50%;text-align: start ">
+                        <p style="margin: 0">no available memo</p>
+                    </div>
+                {%  endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No block are available.</p>
+    {% endif %}
+    <div>
+        <a href="{% url 'our_memo:create_block' %}" style="padding-right: 10px">create a block</a>
+        <a href="{% url 'our_memo:create_memo' %}" style="padding-left: 10px">create a memo</a>
+    </div>
+{% endblock %}

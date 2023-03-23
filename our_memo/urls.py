@@ -5,6 +5,7 @@ from . import views
 app_name = "our_memo"
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+
     path('block/create/', views.BlockCreateView.as_view(), name='create_block'),
     path('block/<int:pk>/', views.BlockView.as_view(), name='block'),
     path('block/<int:pk>/update', views.BlockUpdate.as_view(), name='update_block'),

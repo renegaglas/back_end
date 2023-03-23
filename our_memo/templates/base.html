@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    {% block head_content %}
+    {% endblock %}
+</head>
+
+<body  style="height: 100%; display: grid; grid-template-rows: auto 1fr auto;text-align: center; margin-left: 10%; margin-right: 10%;">
+    {% if user.is_authenticated %}
+    <nav style="align-self: center;display: flex; background-color: grey;">
+        <div style="margin-top: auto;margin-bottom: auto;">
+            <a href="{% url 'our_memo:index' %}">Our_Memo</a>
+        </div>
+        <div style="align-self: center;width: auto; margin: auto;">
+            {% block nav_title %}
+            {% endblock %}
+        </div>
+        <div style="margin-top: auto;margin-bottom: auto;">
+            <a href="{% url 'logout' %}" class="button">Logout</a>
+        </div>
+    </nav>
+
+    <main style="display: flex;flex-direction: column">
+        {% block main_content %}
+        {% endblock %}
+    </main>
+
+    <section>
+        {% block section_content %}
+        {% endblock %}
+    </section>
+
+    <footer style=" padding: 20px; display: flex; justify-content: center; align-items: center;">
+        {% block footer_content %}
+        {% endblock %}
+        <p>created by Mathis Villemin</p>
+    </footer>
+
+    {%  else %}
+        <main>
+            <a href="{% url 'login' %}">Login</a>
+        </main>
+    {% endif %}
+</body>
+</html>

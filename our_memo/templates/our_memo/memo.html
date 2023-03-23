@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head_content %}
+    <title> memo {{ memo.id }} </title>
+{% endblock %}
+
+{% block nav_title %}
+    <h1>Reading memo {{ memo.id }}</h1>
+{% endblock %}
+
+{% block main_content %}
+    <div style="border: 5px groove black;width: 60%;align-self: center;text-align: center;margin: 20px">
+        <h1>{{ memo.memo_title }}</h1>
+        <p>{{ memo.memo_text }}</p>
+        <p>{{ memo.accomplish }}</p>
+    </div>
+
+
+    <div>
+    <a href="{% url 'our_memo:update_memo' memo.id %}" style="padding-right: 10px">update a memo</a>
+    <a href="{% url 'our_memo:delete_memo' memo.id %}" style="padding-left: 10px">delete a memo</a>
+    </div>
+{% endblock %}

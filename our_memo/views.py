@@ -1,6 +1,5 @@
 from django.views import generic
 
-
 from .models import Block, Memo
 
 #view are use to respond to web request
@@ -27,39 +26,39 @@ class MemoView(generic.DetailView):
 
 class BlockCreateView(generic.CreateView):
     model = Block
-    template_name = 'our_memo/create_block.html'
+    template_name = 'our_memo/create.html'
     fields = ['block_title']
     success_url = '/'
 
 
 class MemoCreateView(generic.CreateView):
     model = Memo
-    template_name = 'our_memo/create_block.html'
-    fields = ['block', 'memo_title', 'memo_text',]
+    template_name = 'our_memo/create.html'
+    fields = ['block', 'memo_title', 'memo_text']
     success_url = '/'
 
 
 class BlockUpdate(generic.UpdateView):
     model = Block
-    template_name = 'our_memo/update_block.html'
+    template_name = 'our_memo/update.html'
     fields = ['block_title']
     success_url = '/'
 
 
 class MemoUpdate(generic.UpdateView):
     model = Memo
-    template_name = 'our_memo/update_block.html'
+    template_name = 'our_memo/update.html'
     fields = ['block', 'memo_title', 'memo_text', 'accomplish']
     success_url = '/'
 
 
 class DeleteBlock(generic.DeleteView):
     model = Block
-    template_name = 'our_memo/delete_block.html'
+    template_name = 'our_memo/delete.html'
     success_url = '/'
 
 
 class DeleteMemo(generic.DeleteView):
     model = Memo
-    template_name = 'our_memo/delete_block.html'
+    template_name = 'our_memo/delete.html'
     success_url = '/'

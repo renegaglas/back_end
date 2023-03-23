@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block head_content %}
+    <title> memo {{ object.id }} </title>
+{% endblock %}
+
+{% block nav_title %}
+    <h1> block title : {{ object.block_title }} </h1>
+{% endblock %}
+
+{% block main_content %}
+    <div style="border: 5px groove black;width: 60%;align-self: center;text-align: center;margin: 20px">
+        <ul style="list-style-type:none;">
+            {% for memo in object.memo_set.all %}
+                <li><a href="{% url 'our_memo:memo' memo.id %}">{{ memo.memo_title }}</a> <p>(status : {{ memo.accomplish }})</p></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
