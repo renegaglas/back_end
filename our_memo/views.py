@@ -2,8 +2,9 @@ from django.views import generic
 
 from .models import Block, Memo
 
-#view are use to respond to web request
-#we use the generic views of the django.views library to facilitate our work
+
+# view are use to respond to web request
+# we use the generic views of the django.views library to facilitate our work
 
 class IndexView(generic.ListView):
     template_name = 'our_memo/index.html'

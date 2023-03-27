@@ -1,8 +1,10 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.urls import reverse, resolve
 from django.utils import timezone
 import datetime
 
 from .models import Block, Memo
+from .views import *
 
 
 # Create your tests here.
@@ -47,8 +49,39 @@ class BasicTest(TestCase):
         #print("everything is fine")
         return True
 
-    def test_html(self):
-        pass
 
-    def test_view(self):
-        pass
+class test_url(TestCase):
+    def test_url_associated_view(self):
+        #testing that every urls pattern is link to the good view class
+        self.assertEqual(resolve(reverse('our_memo:index')).func.view_class, IndexView)
+
+        self.assertEqual(resolve(reverse('our_memo:create_block')).func.view_class, BlockCreateView)
+        self.assertEqual(resolve(reverse('our_memo:block', args=[0])).func.view_class, BlockView)
+        self.assertEqual(resolve(reverse('our_memo:update_block', args=[0])).func.view_class, BlockUpdate)
+        self.assertEqual(resolve(reverse('our_memo:delete_block', args=[0])).func.view_class, DeleteBlock)
+
+        self.assertEqual(resolve(reverse('our_memo:create_memo')).func.view_class, MemoCreateView)
+        self.assertEqual(resolve(reverse('our_memo:memo', args=[0])).func.view_class, MemoView)
+        self.assertEqual(resolve(reverse('our_memo:update_memo', args=[0])).func.view_class, MemoUpdate)
+        self.assertEqual(resolve(reverse('our_memo:delete_memo', args=[0])).func.view_class, DeleteMemo)
+
+class test_html(TestCase):
+    def setUp(self):
+        block_first = Block.objects.create(block_title="block_first", pub_date=timezone.now())
+        Memo.objects.create(memo_title="memo_first", memo_text="hello world!", pub_date=timezone.now(),
+                            block=block_first)
+
+    def test_html_response(self):
+        client = Client()
+
+        self.assertTemplateUsed(client.get(reverse('our_memo:index')),'our_memo/index.html')
+
+        self.assertTemplateUsed(client.get(reverse('our_memo:create_block')),'our_memo/create.html')
+        self.assertTemplateUsed(client.get(reverse('our_memo:block', args=[0])),'our_memo/block.html')
+        self.assertTemplateUsed(client.get(reverse('our_memo:update_block', args=[0])),'our_memo/update.html')
+        self.assertTemplateUsed(client.get(reverse('our_memo:delete_block', args=[0])),'our_memo/delete.html')
+
+        self.assertTemplateUsed(client.get(reverse('our_memo:create_memo')),'our_memo/create.html')
+        self.assertTemplateUsed(client.get(reverse('our_memo:memo', args=[0])),'our_memo/memo.html')
+        self.assertTemplateUsed(client.get(reverse('our_memo:update_memo', args=[0])),'our_memo/update.html')
+        self.assertTemplateUsed(client.get(reverse('our_memo:delete_memo', args=[0])),'our_memo/delete.html')
